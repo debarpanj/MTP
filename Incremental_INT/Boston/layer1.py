@@ -3,7 +3,7 @@ import subprocess
 import time
 
 set_option(rational_to_decimal=True)
-set_option(precision=25)
+set_option(precision=10)
 def Cexec(init_string):
     result = []
     fractions = init_string.split()
@@ -15,9 +15,9 @@ def Cexec(init_string):
             result.append('{:.11f}'.format(decimal))
         else:
             result.append(fraction)
-    out = subprocess.check_output("./a.out %s" % ' '.join(result), shell=True,)
+    out = subprocess.check_output("./a.exe %s" % ' '.join(result), shell=False,)
     o=out.decode('utf-8').split()
-    return o
+    return o[0]
 
 
 
@@ -32,7 +32,7 @@ ov2_1= Real('ov2_1')
 
 
 def NN(in1,in2,in3,in4,in5,in6,in7,in8,in9,in10,in11,in12,in13,l1n1_1,l1n2_1,l1n3_1,l1n4_1,l1n5_1,l1n6_1,l1n7_1,l1n8_1,l1n9_1,l1n10_1,l1n11_1,l1n12_1,l1n13_1):
-	l2out_1 = Real('l2out_1')
+	#l2out_1 = Real('l2out_1')
 	l2out_1 = (in1 * l1n1_1) + (in2 * l1n2_1) + (in3 * l1n3_1) + (in4 * l1n4_1) + (in5 * l1n5_1) + (in6 * l1n6_1) + (in7 * l1n7_1) + (in8 * l1n8_1) + (in9 * l1n9_1) + (in10 * l1n10_1) + (in11 * l1n11_1) + (in12 * l1n12_1) + (in13 * l1n13_1) 
 	l2out_1 = If(l2out_1 < 0, 0, l2out_1)
 	
@@ -58,8 +58,9 @@ s = Tactic('smt').solver()
 s.add(NN(in1,in2,in3,in4,in5,in6,in7,in8,in9,in10,in11,in12,in13,l1n1v1_1,l1n2v1_1,l1n3v1_1,l1n4v1_1,l1n5v1_1,l1n6v1_1,l1n7v1_1,l1n8v1_1,l1n9v1_1,l1n10v1_1,l1n11v1_1,l1n12v1_1,l1n13v1_1) == ov1_1)
 s.add(NN(in1,in2,in3,in4,in5,in6,in7,in8,in9,in10,in11,in12,in13,l1n1v2_1,l1n2v2_1,l1n3v2_1,l1n4v2_1,l1n5v2_1,l1n6v2_1,l1n7v2_1,l1n8v2_1,l1n9v2_1,l1n10v2_1,l1n11v2_1,l1n12v2_1,l1n13v2_1) == ov2_1)
 
+
 while s.check(ov1_1 != ov2_1,Or(l1n1v1_1!=l1n1v2_1,l1n2v1_1!=l1n2v2_1,l1n3v1_1!=l1n3v2_1,l1n4v1_1!=l1n4v2_1,l1n5v1_1!=l1n5v2_1,l1n6v1_1!=l1n6v2_1,l1n7v1_1!=l1n7v2_1,l1n8v1_1!=l1n8v2_1,l1n9v1_1!=l1n9v2_1,l1n10v1_1!=l1n10v2_1,l1n11v1_1!=l1n11v2_1,l1n12v1_1!=l1n12v2_1,l1n13v1_1!=l1n13v2_1)) == sat:
-	m = s.model()
+	m=s.model()
 	ia = str(m[in1]) + " " + str(m[in2]) + " " + str(m[in3]) + " " + str(m[in4]) + " " + str(m[in5]) + " " + str(m[in6]) + " " + str(m[in7])+ " " + str(m[in8])+ " " + str(m[in9])+ " " + str(m[in10])+ " " + str(m[in11])+ " " + str(m[in12])+ " " + str(m[in13])
 	print(ia)
 	out = Cexec(ia)
@@ -77,10 +78,8 @@ while s.check(ov1_1 != ov2_1,Or(l1n1v1_1!=l1n1v2_1,l1n2v1_1!=l1n2v2_1,l1n3v1_1!=
 	inp11 = m[in11]
 	inp12 = m[in12]
 	inp13 = m[in13]
-	s.add(NN(inp1,inp2,inp3,inp4,inp5,inp6,inp7,inp8,inp9,inp10,inp11,inp12,inp13,l1n1v1_1,l1n2v1_1,l1n3v1_1,l1n4v1_1,l1n5v1_1,l1n6v1_1,l1n7v1_1,l1n8v1_1,l1n9v1_1,l1n10v1_1,l1n11v1_1,l1n12v1_1,l1n13v1_1) == out[0])
-	s.add(NN(inp1,inp2,inp3,inp4,inp5,inp6,inp7,inp8,inp9,inp10,inp11,inp12,inp13,l1n1v2_1,l1n2v2_1,l1n3v2_1,l1n4v2_1,l1n5v2_1,l1n6v2_1,l1n7v2_1,l1n8v2_1,l1n9v2_1,l1n10v2_1,l1n11v2_1,l1n12v2_1,l1n13v2_1) == out[0])
-
-	
+	s.add(NN(inp1,inp2,inp3,inp4,inp5,inp6,inp7,inp8,inp9,inp10,inp11,inp12,inp13,l1n1v1_1,l1n2v1_1,l1n3v1_1,l1n4v1_1,l1n5v1_1,l1n6v1_1,l1n7v1_1,l1n8v1_1,l1n9v1_1,l1n10v1_1,l1n11v1_1,l1n12v1_1,l1n13v1_1) == out)
+	s.add(NN(inp1,inp2,inp3,inp4,inp5,inp6,inp7,inp8,inp9,inp10,inp11,inp12,inp13,l1n1v2_1,l1n2v2_1,l1n3v2_1,l1n4v2_1,l1n5v2_1,l1n6v2_1,l1n7v2_1,l1n8v2_1,l1n9v2_1,l1n10v2_1,l1n11v2_1,l1n12v2_1,l1n13v2_1) == out);st=s.statistics();print(st)
 
 print("hi")
 while s.check(l1n1v1_1==l1n1v2_1,l1n2v1_1==l1n2v2_1,l1n3v1_1==l1n3v2_1,l1n4v1_1==l1n4v2_1,l1n5v1_1==l1n5v2_1,l1n6v1_1==l1n6v2_1,l1n7v1_1==l1n7v2_1,l1n8v1_1==l1n8v2_1,l1n9v1_1==l1n9v2_1,l1n10v1_1==l1n10v2_1,l1n11v1_1==l1n11v2_1,l1n12v1_1==l1n12v2_1,l1n13v1_1==l1n13v2_1) !=unsat:
