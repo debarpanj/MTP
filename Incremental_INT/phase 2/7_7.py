@@ -74,8 +74,16 @@ while s.check(ov1_1 != ov2_1,Or(l1n1v1_1!=l1n1v2_1,l1n2v1_1!=l1n2v2_1,l1n3v1_1!=
 	inp7 = m[in7]
 
 
-	s.add(NN(inp1,inp2,inp3,inp4,inp5,inp6,inp7,l1n1v1_1,l1n2v1_1,l1n3v1_1,l1n4v1_1,l1n5v1_1,l1n6v1_1,l1n7v1_1,b1v1_1) == out[0]);ind_time = datetime.now(timezone("Asia/Kolkata")).strftime('%Y-%m-%d %H:%M:%S.%f');print(ind_time)
-	s.add(NN(inp1,inp2,inp3,inp4,inp5,inp6,inp7,l1n1v2_1,l1n2v2_1,l1n3v2_1,l1n4v2_1,l1n5v2_1,l1n6v2_1,l1n7v2_1,b1v2_1) == out[0]);st=s.statistics();print(st.get_key_value('time'))
+	s.add(NN(inp1,inp2,inp3,inp4,inp5,inp6,inp7,l1n1v1_1,l1n2v1_1,l1n3v1_1,l1n4v1_1,l1n5v1_1,l1n6v1_1,l1n7v1_1,b1v1_1) == out[0])
+	s.add(NN(inp1,inp2,inp3,inp4,inp5,inp6,inp7,l1n1v2_1,l1n2v2_1,l1n3v2_1,l1n4v2_1,l1n5v2_1,l1n6v2_1,l1n7v2_1,b1v2_1) == out[0])
+	try:
+		ind_time = datetime.now(timezone("Asia/Kolkata")).strftime('%Y-%m-%d %H:%M:%S.%f')
+		print(ind_time)
+	except:
+		print("No time available")
+	 
+	st=s.statistics()
+	print(st.get_key_value('time'))
 
 print("hi")
 while s.check(l1n1v1_1==l1n1v2_1,l1n2v1_1==l1n2v2_1,l1n3v1_1==l1n3v2_1,l1n4v1_1==l1n4v2_1,l1n5v1_1==l1n5v2_1,l1n6v1_1==l1n6v2_1,l1n7v1_1==l1n7v2_1,b1v1_1==b1v2_1)!=unsat:
