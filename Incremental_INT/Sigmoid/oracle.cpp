@@ -1,9 +1,13 @@
 #include<iostream>
 #include<vector>
 #include<string>
+#include<cmath>
+#include<cfloat>
+#include <iomanip>
 using namespace std;
 
 int main(int ac, char* av[]) {
+    
     vector<double> inputs(7);
     for(int i = 1; i < 8; ++i) {
         inputs[i - 1] = stod(string(av[i]));
@@ -11,6 +15,29 @@ int main(int ac, char* av[]) {
 //      vector<<vector<double>>W={{-0.26927736,0.4474085,-0.6313309,-0.23548515,0.28327122,0.1805473,-0.7850956},{0.40271512,0.593842,-0.48198894,-0.34208864 -0.33478367  0.2008145
 //    0.33520782}};
     //cout<<endl;
+    //cout<<exp(1)<<endl;
+    std::cout << std::fixed << std::setprecision(10);
+
+     auto sigmoid=[&](double x)->double
+     {
+          if(exp(-x)==HUGE_VAL)return 1.0/DBL_MAX;
+          cout<<exp(-x)<<endl;
+          if(exp(-x)==0)
+          {
+              //cout<<"Hi"<<endl;
+              return (double)0.9999999999;
+          }
+          
+          double temp=1.00+exp(-x);
+          //cout<<temp<<endl;;
+          double y=1.00/temp;
+          return y;
+     };
+     auto Sigmoid=[&](double x)->double
+     {
+         double temp=exp(x)+1;
+         return temp/(temp+1);
+     };
     vector<vector<double>> W= {
     {-0.26927736,  0.4474085,   -0.6313309,  -0.23548515,  0.28327122,  0.18054737, -0.7850956},
     { 0.40271512,  0.593842,   -0.48198894, -0.34208864, -0.33478367,  0.2008145,   0.33520782},
@@ -22,13 +49,15 @@ int main(int ac, char* av[]) {
 };
    vector<double>B={-0.012214,0.12345678,0.23242210,-0.11230691,-0.88321415,0.551432123,-0.75767};
      double l2out=0;
-     int k=5;
+     int k=2;
     for(int i = 0; i < 7; ++i) {
         
         l2out+=W[k][i]*inputs[i];
     }
     l2out+=B[k];
-    l2out=(l2out<0)?0:l2out;
+    //cout<<l2out<<endl;
+    
+    l2out=sigmoid(l2out);
     cout<<l2out;
     return 0;
     
