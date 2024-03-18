@@ -21,9 +21,9 @@ def Cexec(init_string):
     out = subprocess.check_output("./a.exe %s" % ' '.join(result), shell=False,)
     o=out.decode('utf-8').split()
     t=float(o[0])
+    print("value of y is : ",t)
     y=logit(t)
-    print(t)
-    print(y)
+    print("value of x is : ",y)
     return y
 start_time = time.time()
 
