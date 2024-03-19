@@ -18,27 +18,12 @@ int main(int ac, char* av[]) {
 
      auto sigmoid=[&](double x)->double
      {
-          //if(exp(-x)==HUGE_VAL)return 1.0/DBL_MAX;
-          //cout<<exp(-x)<<endl;
-        //   if(exp(-x)==0)
-        //   {
-        //       //cout<<"Hi"<<endl;
-        //       return (double)0.9999999999;
-        //   }
-          //if(x==0)cout<<"hi"<<endl;
+         
           
           double temp=1.00+exp(-x);
-          //cout<<temp<<endl;;
+          
           double y=1.00/temp;
-          // double a=1.0;
-          // double y=a/(double)(a+exp(-x));
-          //cout<<y<<endl;
-          // if(y==1)
-          // {
-          //   //cout<<"hi"<<endl;
-          //   return (double)0.999999;
-          // }
-          // if(y==0)return (double)0.00000001;
+         
           return y;
      };
      auto Sigmoid=[&](double x)->double
@@ -63,7 +48,7 @@ int main(int ac, char* av[]) {
         l2out+=W[k][i]*inputs[i];
     }
     l2out+=B[k];
-    cout<<l2out<<endl;
+    //cout<<l2out<<endl;
     
     l2out=sigmoid(l2out);
     cout<<l2out;

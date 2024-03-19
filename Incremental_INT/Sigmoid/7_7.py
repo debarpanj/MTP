@@ -62,9 +62,14 @@ s = Tactic('smt').solver()
 
 s.add(NN(in1,in2,in3,in4,in5,in6,in7,l1n1v1_1,l1n2v1_1,l1n3v1_1,l1n4v1_1,l1n5v1_1,l1n6v1_1,l1n7v1_1,b1v1_1) == ov1_1)
 s.add(NN(in1,in2,in3,in4,in5,in6,in7,l1n1v2_1,l1n2v2_1,l1n3v2_1,l1n4v2_1,l1n5v2_1,l1n6v2_1,l1n7v2_1,b1v2_1) == ov2_1)
-s.add(ov1_1>=-709)
-s.add(ov2_1>=-709)
-
+# s.add(ov1_1>=-709)
+# s.add(ov2_1>=-709)
+s.add(NN(in1,in2,in3,in4,in5,in6,in7,l1n1v1_1,l1n2v1_1,l1n3v1_1,l1n4v1_1,l1n5v1_1,l1n6v1_1,l1n7v1_1,b1v1_1) <=14.50)
+s.add(NN(in1,in2,in3,in4,in5,in6,in7,l1n1v2_1,l1n2v2_1,l1n3v2_1,l1n4v2_1,l1n5v2_1,l1n6v2_1,l1n7v2_1,b1v2_1) <=14.50)
+s.add(NN(in1,in2,in3,in4,in5,in6,in7,l1n1v1_1,l1n2v1_1,l1n3v1_1,l1n4v1_1,l1n5v1_1,l1n6v1_1,l1n7v1_1,b1v1_1) >=-709)
+s.add(NN(in1,in2,in3,in4,in5,in6,in7,l1n1v2_1,l1n2v2_1,l1n3v2_1,l1n4v2_1,l1n5v2_1,l1n6v2_1,l1n7v2_1,b1v2_1) >=-709)
+# s.add(ov1_1<=14.5)
+# s.add(ov2_1<=14.5)
 
 while s.check(ov1_1 != ov2_1,Or(l1n1v1_1!=l1n1v2_1,l1n2v1_1!=l1n2v2_1,l1n3v1_1!=l1n3v2_1,l1n4v1_1!=l1n4v2_1,l1n5v1_1!=l1n5v2_1,l1n6v1_1!=l1n6v2_1,l1n7v1_1!=l1n7v2_1,b1v1_1!=b1v2_1)) == sat:
 	m = s.model()
@@ -92,7 +97,7 @@ while s.check(ov1_1 != ov2_1,Or(l1n1v1_1!=l1n1v2_1,l1n2v1_1!=l1n2v2_1,l1n3v1_1!=
 	st=s.statistics()
 	print("next DIP expected time is : ",st.get_key_value('time'))
 
-print("hi")
+print("\n\nDIP generation is over::::\n")
 while s.check(l1n1v1_1==l1n1v2_1,l1n2v1_1==l1n2v2_1,l1n3v1_1==l1n3v2_1,l1n4v1_1==l1n4v2_1,l1n5v1_1==l1n5v2_1,l1n6v1_1==l1n6v2_1,l1n7v1_1==l1n7v2_1,b1v1_1==b1v2_1)!=unsat:
 
 	try:m=s.model()
