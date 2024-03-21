@@ -42,7 +42,7 @@ int main(int ac, char* av[]) {
 };
    vector<double>B={-0.012214,0.12345678,0.23242210,-0.11230691,-0.88321415,0.551432123,-0.75767};
      double l2out=0;
-     int k=0;
+     int k=6;
     for(int i = 0; i < 7; ++i) {
         
         l2out+=W[k][i]*inputs[i];
